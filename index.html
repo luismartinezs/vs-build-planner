@@ -208,6 +208,28 @@
         background-size: cover;
       }
 
+      /* slot fixed columnar layout */
+      .slots.slots--fixed {
+        position: fixed;
+        z-index: 10;
+        left: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .slots.slots--col .slots-content {
+        flex-direction: column;
+      }
+      .slots.slots--col .arcanas {
+        display: flex;
+        flex-direction: row;
+      }
+      .slots.slots--col .inventory {
+        flex-direction: row;
+      }
+      .slots.slots--col .weapons, .slots.slots--col .passives {
+        flex-direction: column;
+      }
+
       /* Objects */
 
       .objects {
@@ -453,8 +475,8 @@
         </header>
 
         <!-- Slots -->
-        <section class="slots flex-row-col">
-          <div class="flex-col-row">
+        <section class="slots flex-row-col slots--fixed slots--col">
+          <div class="slots-content flex-col-row">
             <div class="arcanas flex-row-col">
               <div v-for="(arcana, $index) in selectedArcanas.slice(6, 9)" :data-id="arcana.id" class="slot arcana" :class="arcana.type" :title="arcana.title" @click="deleteItem(arcana, selectedArcanas[$index+1])" @mouseenter="onMouseEnter(arcana)" @mouseleave="onMouseLeave()">
                 <div class="icon" :class="`icon-${arcana.id}`"></div>
@@ -479,7 +501,7 @@
             <div v-else class="slot character">
               <small class="empty">CHARACTER</small>
             </div>
-            <div class="flex-row-col">
+            <div class="inventory flex-row-col">
               <div class="flex-col-row weapons">
                 <div v-for="(weapon, $index) in evolvedWeapons" :data-id="weapon.id" class="slot weapon" :title="weapon.title" @click="deleteItem(weapon, evolvedWeapons[$index+1])" @mouseenter="onMouseEnter(weapon)" @mouseleave="onMouseLeave()">
                   <div class="icon" :class="`icon-${weapon.id}`"></div>
